@@ -5,6 +5,12 @@
 from sys import argv
 
 
+# Constants ##########
+
+NAMES_PER_LINE = 3
+SPACING = 24
+
+
 # Functions ##########
 
 
@@ -18,14 +24,35 @@ def print_help():
 	print "Manual coming soon."
 
 
+def config():
+	print ("SETTINGS ----------"
+		"\n\tKeywords:"
+		"\n\t\t'line' to change the number of names per line"
+		"\n\t\t'space' to change the space allocated to each name"
+		"\n\t\t'finish' to return to name input mode.")
+
+	prompt = "(SETTINGS)>"
+	done = False
+	while not done:
+		# TODO: catch non-integer cases
+		option = raw_input(prompt)
+		if option == "line":
+			line = raw_input("Enter number of names per line:")
+			NAMES_PER_LINE = int(line)
+		elif option == "space":
+			space = raw_input("Enter spacing:")
+			SPACING = int(space)
+		elif option == "finish":
+			done = True
+		else:
+			print "Invalid option."
+	
+
+
 # Prints values in organized rows, separated by spaces
 # @param values		A list of values to print
 def show(values):
 	
-	# Constants
-	NAMES_PER_LINE = 3
-	SPACING = 24
-
 	# Init vars
 	row = ""
 	num_printed = 0;
@@ -82,6 +109,8 @@ while not done:
 		print "Undo function is not yet implemented"
 	elif member == "help":
 		print_help()
+	elif member == "config":
+		config()
 	elif member in absent:
 		present.append(member)
 		present.sort()
