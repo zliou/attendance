@@ -43,7 +43,7 @@ def show(values):
 			row += " "
 		for i in range (0, num_spaces):
 			row += " "
-		if (num_printed % NAMES_PER_LINE) == 0:
+		if ((num_printed % NAMES_PER_LINE) == 0) or (value == values[-1]):
 			print row
 			row = ""
 
@@ -63,7 +63,7 @@ roster = [name.replace('\t', ' ') for name in raw]
 
 # Init rosters and other attendance vars
 absent = roster
-present = [];
+present = list()
 prompt = "> "
 done = False
 
@@ -82,7 +82,13 @@ while not done:
 		print "Undo function is not yet implemented"
 	elif member == "help":
 		print_help()
-
+	elif member in absent:
+		present.append(member)
+		present.sort()
+		absent.remove(member)
+	else:
+		print member, " not found."
+		
 # Print names of members present and absent
 print("\n##################################"
 	"\nThe following members are PRESENT:\n")
